@@ -1,0 +1,144 @@
+\documentclass[10pt, oneside]{article}
+\usepackage{amsmath, amsthm, amssymb, geometry}
+
+\geometry{tmargin=1in, bmargin=1in, lmargin=1in, rmargin=1in}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Cdot}{\boldsymbol{\cdot}}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{conv}{Convention}
+\newtheorem{rem}{Remark}
+\newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{ex}{Example}
+
+\title{01: Fields}
+\author{Mike Bernard}
+\date{2021-01-19}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\vspace{0.25in}
+
+\section{Fields}
+
+A Field is loosely defined as a number system that models the usual conventions for addition, multiplication, subtraction, and division.
+
+\begin{ex} Common Fields:
+    \begin{itemize}
+        \item $\Q$: Rational numbers; equivalence classes of pairs $(m, n)$ of integers, with $n \neq 0$, such that $\frac{m}{n} = \frac{p}{q}$ iff $mq = np$.
+        \item $\R$: Real numbers; decimal expansions.
+        \item $\C$: Complex numbers.
+    \end{itemize}
+\end{ex}
+
+\begin{defn}
+    A {\em Field} F is a set of elements with:
+    \begin{itemize}
+        \item an additive identity element, denoted $0$ or $0_F$ to avoid confusion
+        \item a multiplicative identity element, denoted $1$ or $1_F$ to avoid confusion
+        \item an additive operation $+: F \times F \to F$
+        \item a multiplicative operation $\Cdot: F \times F \to F$ (oftened shortened from $x \Cdot y$ to $xy$)
+    \end{itemize}
+    with the properties that:
+    \begin{enumerate}
+        \item $x + y = y + x \forall x, y \in F$ (additive commutativity)
+        \item $(x + y) + z = x + (y + z) \forall x, y, z \in F$ (additive associativity)
+        \item $x + 0 = 0 + x = x \forall x \in F$ (additive identity)
+        \item $\forall x \in F, \exists -x \in F$ s.t. $x + (-x) = 0$ (additive inverse)
+        \item $x \Cdot y = y \Cdot x \forall x, y \in F$ (multiplicative commutativity)
+        \item $(xy)z = x(yz) \forall x, y, z \in F$ (multiplicative associativity)
+        \item $x \Cdot 1 = 1 \Cdot x = x \forall x \in F$ (multiplicative identity)
+        \item $1 \neq 0$ and $\forall x \in F$ where $x \neq 0$, $\exists x^{-1} \in F$ s.t. $xx^{-1} = 1$ (multiplicative inverse)
+        \item $x(y + z) = xy + xz \forall x, y, z \in F$ (distributivity) 
+    \end{enumerate}
+\end{defn}
+
+\begin{rem}
+The set of integers $\Z$ is \textit{not} a field; it violates property 8 under Definition 1 (e.g. 2 does not have an integer multiplicative inverse).
+\end{rem}
+
+\begin{rem}
+    0 and 1 are always unique in a field.
+\end{rem}
+
+\begin{ex}
+$\Z_m$ is the set of equivalence classes of integers modulo $m$, $m \geq 2$.
+
+Note that $\Z_2 = \{ 0, 1 \}$ meets the properties listed in Definition 1, and is therefore a field. In contrast, $\Z_4$ is not a field, since $2 \in \Z_4$ does not have a multiplicative inverse.
+\end{ex}
+
+
+
+\section{Characteristics}
+
+\begin{defn}
+    The {\em characteristic} of a field is defined as the number of times the multiplicative identity element must be added with itself to yield the additive identity element.
+
+    For example, in $\Z_2$, $1 + 1 = 0$, so {\em char $\Z_2$} = 2.
+
+    If the sum never yields the additive identity, we denote the characteristic as 0 by convention. Exemplar fields include $\Q$, $\R$, and $\C$.
+
+    Note: Nonzero characteristics are always prime.
+
+    Note: Arithmetic geometry studies fields with positive characteristics.
+\end{defn}
+
+\begin{thm}
+    $\Z_m$ is a field iff $m$ is prime.
+\end{thm}
+
+\begin{rem} Using field axioms, we can obtain all the usual rules of arithmetic, for example, \begin{itemize}
+    \item $0 \Cdot x = 0$
+    \item associativity holds for any finite number of elements (not easily written out)
+    \item subtraction can be defined as $x - y := x + (-y)$
+\end{itemize}
+\end{rem}
+
+
+
+\section{Vector Spaces}
+
+\begin{defn} A set V is a {\em vector space} over a field F if it has:
+    \begin{itemize}
+        \item $\exists \vec{0} \in V$ (zero vector)
+        \item $+: V \times V \to V$ (vector addition)
+        \item $\Cdot: F \times V \to V$ (scalar multiplication)
+    \end{itemize}
+    with the properties:
+    \begin{enumerate}
+        \item $\vec{x} + \vec{y} = \vec{y} + \vec{x}$ $\forall \vec{x}, \vec{y} \in V$ (additive commutativity)
+        \item $(x + y) + z = x + (y + z)$ $\forall x, y, z \in V$ (additive associativity)
+        \item $x + \vec{0} = x$ $\forall x \in V$ (additive identity)
+        \item $\forall x \in V$, $\exists x^{-1} \in V$ s.t. $x + (-x) = \vec{0}$ (additive inverse)
+        \item $\alpha(\beta x) = (\alpha \beta)x$ $\forall \alpha, \beta \in F, \forall x \in V$ (scalar multiplication)
+        \item $1_F \Cdot x = x$ $\forall x \in V$ (multiplicative identity)
+        \item $\alpha(x + y) = \alpha x + \alpha y$ $\forall \alpha \in F$, $\forall x, y \in V$ (scalar distributivity)
+        \item $(\alpha + \beta)x = \alpha x + \beta x$ $\forall \alpha, \beta \in F$, $\forall x \in V$ (vector distributivity)
+    \end{enumerate}
+\end{defn}
+
+\noindent \textbf{Remarks on Vector Spaces}
+\begin{itemize}
+    \item F is called the ``scalar field''
+    \item The definition of a vector space V includes by necessity some scalar field F
+    \item In introductory linear algebra, F$= \R$
+    \item Best examples to keep in mind are $\R^2$ and $\R^3$
+    \item We won't write arrows for vectors to save time as long as it can be understood that the element is in a vector space
+    \item $\R^1 \cong \R$ is a vector space over $\R$ (i.e. the set of real numbers is a vector space over itself)
+    \item A vector space over $\R$ is called a ``real'' vector space
+    \item A vector space over $\C$ is called a ``complex'' vector space
+    \item $\R^{1}$ and $\C^{1}$ are too simple examples to say anything interesting
+    \item $\C[x] = P$, the set of polynomials in variable $x$ with complex coefficients is an infinite-dimensional vector space
+    \item In general, $F^{n}$ is an n-dimensional vector space over the field F
+    \item $\C^{n}$ is not just a complex vector space, but also a \textit{real} vector space
+\end{itemize}
+
+\end{document}
